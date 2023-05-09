@@ -1,2 +1,2 @@
-# ctf
+# Ctf
 Writeups for CTF / Trainings.
