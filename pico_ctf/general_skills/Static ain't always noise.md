@@ -5,7 +5,7 @@
 ```shell
  └─$ wget https://mercury.picoctf.net/static/bc72945175d643626d6ea9a689672dbd/static | wget https://mercury.picoctf.net/static/bc72945175d643626d6ea9a689672dbd/ltdis.sh
 ```
-<p>We are met with a 64 bit ELF file and a shell script that appears to be used to perform disassemnbly. Let's make the file's executable and run them.</p>
+<p>We are met with a 64 bit ELF file and a shell script that appears to be used to perform disassembly. Let's make the file's executable and run them.</p>
 
 ```shell
  └─$ chmod +x ltdis.sh
