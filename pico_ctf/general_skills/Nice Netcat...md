@@ -41,4 +41,4 @@ print ("The flag is: ", str(res))
 └─$ nc python3 solve.py
 The flag is: picoCTF{REDACTED}
 ```
-My cat_text will output the wrong flag for you. It's necessary to paste your own array in because the last part of the flag is based on your account.
+My cat_text will output the wrong flag for you. It's necessary to paste your own array in, generally the last part of the flag unique.
