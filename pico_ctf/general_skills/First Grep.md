@@ -15,7 +15,7 @@ picoCTF{REDACTED}
 <br>
 <p>Our flag is picoCTF{REDACTED}.</p>
 <br>
-<p>Another alternative is pipe grep alongside strings</p>
+<p>Another alternative is pipe grep alongside strings.</p>
 
 ```shell
 └─$ strings file | grep 'pico'
