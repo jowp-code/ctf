@@ -20,7 +20,7 @@ Get the Python script accessible in your shell by entering the following command
 <p>Downloading the python script, password and file to decrypt all at once.</p>
 
 ```shell
-$ wget https://mercury.picoctf.net/static/8e33ede04d02f3765b8c6a6e24d72733/ende.py | wget https://mercury.picoctf.net/static/8e33ede04d02f3765b8c6a6e24d72733/pw.txt | wget https://mercury.picoctf.net/static/8e33ede04d02f3765b8c6a6e24d72733/flag.txt.en
+└─$ wget https://mercury.picoctf.net/static/8e33ede04d02f3765b8c6a6e24d72733/ende.py | wget https://mercury.picoctf.net/static/8e33ede04d02f3765b8c6a6e24d72733/pw.txt | wget https://mercury.picoctf.net/static/8e33ede04d02f3765b8c6a6e24d72733/flag.txt.en
 ```
 
 <p>The flag.txt.en appears to be encrypted. Base64 with a <a href="https://cryptography.io/en/latest/fernet/">fernet</a> secret key.</p>
