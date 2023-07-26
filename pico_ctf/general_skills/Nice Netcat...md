@@ -14,12 +14,12 @@
 
 </details>
 
-Netcat is a communications tool blah.
+<a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwj346HO26yAAxWzk4kEHY0TAikQFnoECCgQAQ&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FNetcat&usg=AOvVaw2WTHEUvlGpAAbOQfmQLYBj&opi=89978449">Netcat</a> is a computer networking utility for reading from and writing to network connections using TCP or UDP.
 
 ```shell
 └─$ nc mercury.picoctf.net 43239
 ```
-It appears to be returning ascii code, there are many calculators / translators online for figuring out what this means. However, I am going to solve it using python. Capturing the output to a file:
+It appears to be returning ascii code, there are many options <a href="https://www.duplichecker.com/ascii-to-text.php">online</a> for figuring out what this means. However, I am going to solve it using python. We can copy and paste the dump, or capture the output to a file:
 
 ```shell
 └─$ nc mercury.picoctf.net 43239 > ascii.txt
