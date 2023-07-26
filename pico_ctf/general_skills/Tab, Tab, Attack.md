@@ -1,0 +1,3 @@
+![image](https://github.com/jowp-code/ctf/assets/121969489/18e5afdd-2a7c-4c10-aacb-8c06cb680bde)
+
+After `unzip`ing, this problem can be solved with 11 button-presses...(mostly Tab)...
