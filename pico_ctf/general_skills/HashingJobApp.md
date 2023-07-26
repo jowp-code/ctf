@@ -1,6 +1,6 @@
 ![image](https://github.com/jowp-code/ctf/assets/121969489/095c07b1-859c-4e68-8fed-743cc46e1f25)
 <br>
-<p>Connecting to the system we are met with a prompt, to produce and md5 hash of random text. My randomized words were 'computer hackers', 'Cleopatra', and 'bad dogs'. We can use online tools to solve these md5sums, I used the CLI.</p>
+<p>Connecting to the system we are met with a prompt, to produce and md5 hash of random text. My randomized words were 'computer hackers', 'Cleopatra', and 'bad dogs'. We can use online tools to solve these md5sums, I used the CLI, making sure to use the '-n' flag with echo so we don't output the trailing newline and change our md5 hash</p>
 <br>
 
 ```shell
