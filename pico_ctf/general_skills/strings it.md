@@ -9,7 +9,7 @@
 └─$ wget https://jupiter.challenges.picoctf.org/static/fae9ac5267cd6e44124e559b901df177/strings
 ```
 <br>
-<p></p>
+<p>Using the strings command, and <a href="https://www.redhat.com/sysadmin/pipes-command-line-linux">piping</a> it with grep we can search the string output for picoCTF.</p>
 <br>
 
 ```shell
