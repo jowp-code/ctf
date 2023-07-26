@@ -47,6 +47,7 @@ Any strings found in static have been written to static.ltdis.strings.txt with f
 ```
 
 <p>Alternatively we could have simply run strings on the binary and the flag is found.</p>
+
 ```shell
 └─$ cat strings static
 picoCTF{REDACTED}
