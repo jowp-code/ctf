@@ -7,7 +7,7 @@
 
 </details>
 <br>
-<p>We don't have a lot going on here, but we have an opportunity to do something to help us in later challenges, we can easily looking 0x70 and find that it is the lower case letter 'p'. But we can also use python to save us time searching online. This code is from <a href="https://codeigo.com/python/convert-hex-to-string/">codeigo</a> and modifed to accept an input rather than a static code</p>
+<p>We don't have a lot going on here, but we have an opportunity to do something to help us in later challenges, we can easily looking 0x70 and find that it is the lower case letter 'p'. But we can also use python to save us time searching online. This code is from <a href="https://codeigo.com/python/convert-hex-to-string/">codeigo</a> and modifed to accept an input rather than a static piece of code. Note we are also going to strip the '0x' from the hex code</p>
 <br>
 
 ```Python
@@ -22,17 +22,23 @@ print(str(binary_string, 'utf-8'))
 ```
 
 <br>
-<p></p>
+<p>Running the script with python we get a prompt for data input, where we can enter our hex '70'</p>
 <br>
 
 ```shell
-
+└─$ python3 solve.py
+Enter Hex Code: 70
+p            
 ```
 
 <br>
-<p></p>
+<p>We recieve the expected value of 0x70, a lower case 'p'. picoCTF{p} is therefore our flag, to take testing one step further what would the value be for the following hex code, (0x68, 0x65, 0x6c, 0x6c, 0x6f) if we strip the 0x away we are left with a hexadecimal code of 68656c6c6f.</p>
 <br>
 
 ```shell
-
+└─$ python3 solve.py
+Enter Hex Code: 68656c6c6f
+hello
 ```
+<br>
+<p>We are met with the string 'hello' We could take it a step further and remove the 0x in python itself, but this is simple enough for now.</p>
