@@ -2,7 +2,7 @@
 <br>
 <p>RSA can be intimidating, but in this instance the numbers in use are relatively small, <a href="https://www.youtube.com/watch?v=-ixz-2gi9r0&pp=ygUccGljb2N0ZiBtaW5kIHlvdXIgcHMgYW5kIHFzIA%3D%3D">this video</a> gives a great explanation, and provided the below code in python that I've used to beat many rsa challenges in CTFs.</p>
 <br>
-<p>To gather the information we need to fill out this code we need to factorize our N, we can do this using online tools such as alpertrons <a href="https://www.alpertron.com.ar/ECM.HTM">"Integer factorization calculator"</a>.</p>
+<p>To gather the information we need to fill out this code we need to factorize our 'n', we can do this using online tools such as alpertrons <a href="https://www.alpertron.com.ar/ECM.HTM">Integer factorization calculator</a>.</p>
 <br>
 <p>This will run for a short period of time until it finds two prime factors.</p>
 
