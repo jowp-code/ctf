@@ -8,6 +8,7 @@
 <p>Looking at the file, we are can see the numbers, knowing the format of the flag helps us here. picoCTF{flag}, 16 9 3 15 3 20 6. P is the 16th letter of the alphabet, 9th is I, 3rd is C, 15th is O. So we are working with a simple number letter substitution cipher.</p>
 <br>
 <p>We can solve this with online tools such as <a href"https://www.dcode.fr/letter-number-cipher">dcode</a>, but what about a script we could modify later on for another type of substitution cypher?</p>
+<br>
 
 ```python
 alpha = "abcdefghijklmnopqrstuvwxyz"
@@ -22,9 +23,11 @@ print()
 ```
 <br>
 <p>This outputs our flag picoCTF{REDACTED}</p>
+<br>
 
 ```shell
 └─$ python3 thenumbers.py
 picoctf{REDACTED}
 ```
+<br>
 
