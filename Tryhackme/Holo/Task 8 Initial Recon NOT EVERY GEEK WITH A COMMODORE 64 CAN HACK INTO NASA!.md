@@ -26,17 +26,7 @@ Open 10.200.107.33:80
 Open 10.200.107.250:1337
 
 ```
-How many ports are open on the web server?
-> 3
-
-What CME is running on port 80 of the web server?
-> wordpress
-
-What version of the CME is running on port 80 of the web server?
-> 5.5.3
-
-What is the HTTP title of the web server?
-> holo.live
+We can go ahead and scan the server using the below command, and enumerate services and ports for information.
 
 ### Scan of the Webserver
 ```shell
@@ -66,4 +56,14 @@ PORT      STATE SERVICE REASON  VERSION
 33060/tcp open  mysqlx? syn-ack
 ...
 ```
-All information for the above questions can be found in this scan output.
+How many ports are open on the web server?
+> 3
+
+What CME is running on port 80 of the web server?
+> wordpress
+
+What version of the CME is running on port 80 of the web server?
+> 5.5.3
+
+What is the HTTP title of the web server?
+> holo.live
