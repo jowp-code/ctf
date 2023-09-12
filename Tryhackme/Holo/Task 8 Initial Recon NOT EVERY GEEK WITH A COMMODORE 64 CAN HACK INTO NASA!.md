@@ -66,3 +66,4 @@ PORT      STATE SERVICE REASON  VERSION
 33060/tcp open  mysqlx? syn-ack
 ...
 ```
+All information for the above questions can be found in this scan output.
