@@ -3,7 +3,7 @@
 
 What is the last octet of the IP address of the public-facing web server?
 
-We need to figure out which of our servers is running on port 80(http) or 443(https). So we are going to set rust to scan the 10.200.107.x network range using the /24 cidr notation this may take a while to complete. We can take note that port 80(http) is open on 10.200.107.33. That is likely going to be out public facing web server.
+We need to figure out which of our servers is running on port 80(http) or 443(https). So we are going to set rustscan the 10.200.107.x network range using the /24 cidr notation this may take a while to complete. We can take note that port 80(http) is open on 10.200.107.33. That is likely going to be out public facing web server.
 
 ### Initial Probe
 ```shell
