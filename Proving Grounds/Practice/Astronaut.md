@@ -124,6 +124,7 @@ We get a reverse shell, as www-data.
 ```
 export TERM=xterm;python3 -c 'import pty;pty.spawn("/bin/bash")'
 ```
+<br>
 
 ![image](https://github.com/user-attachments/assets/bb1e2a10-7faf-40fb-abd8-7ddfbf7a2f10)
 
