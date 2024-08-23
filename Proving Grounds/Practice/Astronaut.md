@@ -1,3 +1,7 @@
+# Astronaut
+# Proving Grounds Practice
+# Linux Machine
+
 Beginning with a typical service and version scan with nmap, we find that only ports 22 (ssh) and 80 (http) are open. Additionally we are informed that there is a directory listing available, notably grav-admin.
 
 ##### Nmap Results
