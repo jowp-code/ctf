@@ -35,7 +35,7 @@ Service Info: Host: 127.0.0.1; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 8.52 seconds
 ```
-
+&nbsp
 Enumerating the website, we in fact find that there is a content management system in use, Grav-CMS.
 
 
