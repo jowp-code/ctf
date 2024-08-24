@@ -23,7 +23,7 @@ gvswwmrkxlivyfmgsrhnrisegl
 furvvlqjwkhuxelfrqgmqhrdfk
 etquukpivjgtwdkeqpflpgqcej
 dspttjohuifsvcjdpoekofpbdi
-crossingtherubicondjneoach
+crossingtherubiconredacted
 bqnrrhmfsgdqtahbnmcimdnzbg
 apmqqglerfcpszgamlbhlcmyaf
 zolppfkdqeboryfzlkagkblxze
@@ -49,4 +49,4 @@ hwtxxnslymjwzgnhtsiosjtfhm
 <br>
 <p>At first glance it's giberish, but on closer inspection there is one line that is at least in English</p>
 <br>
-<p>picoCTF{crossingtherubicondjneoach}</p>
+<p>picoCTF{crossingtherubicondredacted}</p>
