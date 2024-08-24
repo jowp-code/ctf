@@ -159,10 +159,11 @@ export TERM=xterm;python3 -c 'import pty;pty.spawn("/bin/bash")'
 find / -perm -u=s 2>/dev/null
 ```
 <br>
-<p align="center">
 
-![image](https://github.com/user-attachments/assets/71cc304e-6c4b-4679-88a9-609b05ad1bba)
+<p align="center" width="100%">
+    <img width="33%" src="https://github.com/user-attachments/assets/71cc304e-6c4b-4679-88a9-609b05ad1bba">
 </p>
+
 
 > Checking out the findings on GTFOBins php seems to be a great candidate for Privilege Escalation.
 
