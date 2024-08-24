@@ -147,7 +147,8 @@ We cannot check for sudo rights on www-data because we don't have the password. 
 ```
 find / -perm -u=s 2>/dev/null
 ```
-
+<br>
+<br>
 
 ![image](https://github.com/user-attachments/assets/71cc304e-6c4b-4679-88a9-609b05ad1bba)
 
