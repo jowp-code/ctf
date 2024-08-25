@@ -116,7 +116,7 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 <br>
 
-> Huh, are you kidding me?? The hint for this question was absolutely spot on, I found nothing when I looked at it the first time, so I went on ahead with other methods. Had I enumerated more thouroughly I would have found this within the first day easily...
+> Huh, are you kidding me?? The hint for this question was absolutely spot on, I found nothing when I looked at it the first time, so I went on ahead with other methods. Had I enumerated more thoroughly I would have found this within the first day easily...
 
 <br>
 
