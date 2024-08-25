@@ -235,7 +235,7 @@ echo "QWxsbWlnaHNoNonNoNoISEhCg==" | base64 -d
 Enter passphrase: 
 steghide: the file format of the file "oneforall.jpg" is not supported.
 ```
-
+<br>
 
 > Well that's unfortunate... I need to see what's going on with this file, maybe someone has modified it. I attempted to use binwalk to extract any files, but it was unsuccessful so at this point I decided to look at the magic bytes for the file. Unfortuantely I had a brain fart and could not remember what all HEX editors come bundled with Kali so I grabbed the first one that looked right.
 
@@ -243,18 +243,22 @@ steghide: the file format of the file "oneforall.jpg" is not supported.
 
 > The magic bytes inidcate that the file is a PNG, not a JPG... it's labeled as a .jpg so let's change the magic bytes to match the jpg extension FF D8 FF E0 00 10 4A 46 49 46 00 01.
 
+<br>
+
 ```shell
 hexeditor -b oneforall.jpg
 ```
 <br>
 
-> after changing the 'file signature' I can now view the file and I'm treated to a cool shot of Deku surrounded by the former users of the One for All quirk! Moving back to what I suspect to be a hidden file I reran the steghide command using the passphrase from the machine.
+> after changing the 'file signature' I can now view the file and I'm treated to a cool shot of Deku surrounded by the former users of the One for All quirk! Moving back to what I suspect to be a hidden file I ran the steghide command again using the passphrase from the machine.
 
+<br>
 
 <p align="center" width="100%">
     <img width="33%" src="https://github.com/user-attachments/assets/3baf9b13-488c-4072-afa8-b5451f35a8e2">
 </p>
 
+<br>
 
 ```
 └─$ steghide extract -sf oneforall.jpg
@@ -264,6 +268,8 @@ wrote extracted data to "creds.txt".
 <br>
 
 > Score, we got a creds file reading the file reveals a Username:Password Combination...
+
+<br>
 
 ```
 deku:One?NoNoNoNoNo1/A
@@ -280,7 +286,7 @@ deku:One?NoNoNoNoNo1/A
 
 <br>
 
-> Knowing that we have deku's password, we can do a cheeky sudo -l to determine if he has any cool privileges that can be abused. I realized in the excitement that I still needed the user flag!
+> Knowing that we have deku's password, we can do a cheeky ```sudo -l``` to determine if he has any cool privileges that can be abused. I realized in the excitement that I still needed the user flag!
 
 <br>
 
@@ -288,6 +294,7 @@ deku:One?NoNoNoNoNo1/A
 cat /home/deku/user.txt | wc -c
 33
 ```
+<br>
 
 ```
 deku@myheroacademia:~$ sudo -l
@@ -300,15 +307,21 @@ User deku may run the following commands on myheroacademia:
 ```
 <br>
 
-> It seem's I can run a script as sudo. Upon investigating the script and trying foolishly to read the /root/root.txt for a quick win. No good, the script checks for many special characters so many options are off the table here. I figured I could add myself as a user with a root shell, but why not just give myself keys to the castle and add to the sudoers file...
+> It seem's I can run a script as sudo. Upon investigating the script and trying foolishly to read the /root/root.txt for a quick win. I noticed that the script is checking for many special characters, so many options are off the table here. I figured I could add myself as a user with a root shell, but why not just give myself keys to the castle and add to the sudoers file...
 
 ## Privilege Escalation
+
+<br>
 
 ```
 deku ALL=NOPASSWD: ALL >> /etc/sudoers
 ```
 
+<br>
+
 > It appears this is successful, so what happens if I use sudo su?
+
+<br>
 
 ```
 deku@myheroacademia:~$ sudo su
@@ -340,4 +353,8 @@ cat /root/root.txt
 
 > This was a really cool themed box, it really reinforced the need for enumeration in depth and not just at the surface level, I wasted many hours trying things that didn't work just to find something that on the surface is so silly, but is so important for this type of work.
 
-TODO: Add Pictures.
+Edits: 
+
+1) Shamelesly updated with a nice command from Jaxafed (credit added) that I hadn't used before.
+
+2) Added pictures.
