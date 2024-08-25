@@ -166,7 +166,7 @@ find / -perm -u=s 2>/dev/null
 </p>
 
 
-> Checking out the findings on GTFOBins php seems to be a great candidate for Privilege Escalation.
+> Checking out the findings on GTFOBins PHP seems to be a great candidate for Privilege Escalation.
 
 
 ### Escalate Privileges
