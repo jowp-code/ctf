@@ -81,7 +81,7 @@ index.php               [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 218
 
 > Why is there an index.php in the assets directory..? Sometimes php files are used to call other things, like commands, pages, languages etc. So what are the odds that this is one of those times?
 
-#### Much better way of fuzzing the parmater (Jaxafed's not my own)
+#### Much better way of fuzzing the parmater (Thank you to Jaxafed)
 
 ```shell
 ffuf -u 'http://uahighschool.thm/assets/index.php?FUZZ=id' -mc all -ic -t 100 -w /usr/share/seclists/Discovery/Web-Content/raft-small-words-lowercase.txt -fs 0
@@ -102,7 +102,7 @@ cmd                     [Status: 200, Size: 72, Words: 1, Lines: 1, Duration: 12
 
 
 <p align="center" width="100%">
-    <img width="33%" src="base64webimage">
+    <img width="33%" src="https://github.com/user-attachments/assets/5ddd39b7-f388-4b96-872c-15adf883731c">
 </p>
 
 > It's base64 encoded...
@@ -183,7 +183,7 @@ export TERM=xterm; python3 -c 'import pty;pty.spawn("/bin/bash")'
 ```
 <br>
 
-> We can see that there is a folder called images (as expected) but when we 'cd' to it we can now see that it contains two files, may as well grab them just incase there are useful for something such as steganography. I set up a web server on port 4445 on the victim machine, and simply used the browser to save the files.
+> We can see that there is a folder called images (as expected) but when we 'cd' to it we can now see that it contains two files, may as well grab them just incase there are useful for something such as steganography. I set up a web server on port 4445 on the victim machine, and simply used the browser to save the files I could also have just used wget / curl.
 
 <br>
 
@@ -193,10 +193,10 @@ python3 -m http.server 4445
 <br>
 
 <p align="center" width="100%">
-    <img width="33%" src="Directory Listing">
+    <img width="33%" src="https://github.com/user-attachments/assets/d3fea185-4217-4467-a659-d4ac125454cb">
 </p>
 
-> Further exploration yields a passphrase.txt located in a /var/www/Hidden_Content
+> Further exploration yields a passphrase.txt located in /var/www/Hidden_Content.
 
 ```shell
 www-data@myheroacademia:/var/www/Hidden_Content$ cat passphrase.txt
@@ -219,13 +219,23 @@ echo "QWxsbWlnaHNoNonNoNoISEhCg==" | base64 -d
 
 > After reviewing the pictures on my machine Yuei.jpg reveals a picture of the High School, but the other picture has something wrong with it. It claims to be a jpg but it's not displaying correctly...
 
+<p align="center" width="100%">
+    <img width="33%" src="https://github.com/user-attachments/assets/bcbeb52f-9f94-4a6d-9bcf-f2fde9bd8d8d">
+</p>
+
 <br>
+
+<p align="center" width="100%">
+    <img width="33%" src="https://github.com/user-attachments/assets/8ff42b7b-e2d0-4de6-8603-6b0edf3a7a9d">
+</p>
+
 
 ```shell
 └─$ steghide extract -sf oneforall.jpg
 Enter passphrase: 
 steghide: the file format of the file "oneforall.jpg" is not supported.
 ```
+
 
 > Well that's unfortunate... I need to see what's going on with this file, maybe someone has modified it. I attempted to use binwalk to extract any files, but it was unsuccessful so at this point I decided to look at the magic bytes for the file. Unfortuantely I had a brain fart and could not remember what all HEX editors come bundled with Kali so I grabbed the first one that looked right.
 
@@ -239,6 +249,12 @@ hexeditor -b oneforall.jpg
 <br>
 
 > after changing the 'file signature' I can now view the file and I'm treated to a cool shot of Deku surrounded by the former users of the One for All quirk! Moving back to what I suspect to be a hidden file I reran the steghide command using the passphrase from the machine.
+
+
+<p align="center" width="100%">
+    <img width="33%" src="https://github.com/user-attachments/assets/3baf9b13-488c-4072-afa8-b5451f35a8e2">
+</p>
+
 
 ```
 └─$ steghide extract -sf oneforall.jpg
@@ -264,7 +280,7 @@ deku:One?NoNoNoNoNo1/A
 
 <br>
 
-> Knowing that we have deku's password, we can do a cheeky sudo -l to determine if he has any cool privileges that can be abused. It was about now when I realized I needed the user flag as well as root!
+> Knowing that we have deku's password, we can do a cheeky sudo -l to determine if he has any cool privileges that can be abused. I realized in the excitement that I still needed the user flag!
 
 <br>
 
