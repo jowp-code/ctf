@@ -34,7 +34,7 @@ Nmap done: 1 IP address (1 host up) scanned in 33.39 seconds
 ```
 <br>
 
-> The scan is showing Apache on port 80 and SSH on port 22, pretty standard for a web server. Scanning for anything higher did not provide any interesting or unusual ports. I opt to fire off a dirbuster scan and browse the website for any clues etc. I added the IP to my hosts file and set the URL to uahighschool.thm and went on my way.
+> The scan is showing Apache on port 80 and SSH on port 22, pretty standard for a web server. Scanning for anything higher did not provide any interesting or unusual ports. I opt to fire off a directory scan and browse the website for any clues etc. I added the IP to my hosts file and set the URL to uahighschool.thm and went on my way.
 
 <br>
 
@@ -81,9 +81,20 @@ index.php               [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 218
 
 > Why is there an index.php in the assets directory..? Sometimes php files are used to call other things, like commands, pages, languages etc. So what are the odds that this is one of those times?
 
+#### Much better way of fuzzing the parmater (Jaxafed's not my own)
+
 ```shell
-ffuf -u 'http://10.10.74.25/assets/index.php?FUZZ=id' -mc all -ic -t 100 -w /usr/share/seclists/Discovery/Web-Content/raft-small-words-lowercase.txt -fs 0
+ffuf -u 'http://uahighschool.thm/assets/index.php?FUZZ=id' -mc all -ic -t 100 -w /usr/share/seclists/Discovery/Web-Content/raft-small-words-lowercase.txt -fs 0
 ```
+
+<br>
+
+```
+cmd                     [Status: 200, Size: 72, Words: 1, Lines: 1, Duration: 124ms]
+[WARN] Caught keyboard interrupt (Ctrl-C)
+```
+
+<br>
 
 > It can be passed commands via the php file... e.g. index.php?cmd=
 
