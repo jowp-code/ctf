@@ -79,9 +79,9 @@ index.php               [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 218
 ```
 <br>
 
-> Why is there an index.php in the assets directory..? Sometimes php files are used to call other things, like commands, pages, languages etc. So what are the odds that this is one of those times?
+> Why is there an index.php in the assets directory..? Sometimes php files are used to call other things, like commands, pages, languages etc. So, what are the odds that this is one of those times?
 
-#### Much better way of fuzzing the parmater (Thank you to Jaxafed)
+#### Much better way of fuzzing the parameter (Thank you to Jaxafed)
 
 ```shell
 ffuf -u 'http://uahighschool.thm/assets/index.php?FUZZ=id' -mc all -ic -t 100 -w /usr/share/seclists/Discovery/Web-Content/raft-small-words-lowercase.txt -fs 0
@@ -122,7 +122,7 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 
 ## Foothold
 
-> Now that we can interact with the system, we can try to figure out a way to get an initial foothold, since we are able to use the command line pretty freely we could simply upload a PHP reverse shell.
+> Now that we can interact with the system, we can try to figure out a way to get an initial foothold, since we are able to use the command line pretty freely, we could simply upload a PHP reverse shell.
 
 #### Set up an HTTP server to Serve files
 
@@ -138,7 +138,7 @@ nc -lvnp 4444
 
 ### Reverse Shell (One Line Command)
 
-> There are many methods that will work here, since we have such free usage of the command line. We could upload a PHP Reverse shell, or we could try some one line command line versions.
+> There are many methods that will work here, since we have such free usage of the command line. We could upload a PHP Reverse shell, or we could try some one-line command line versions.
 
 <br>
 
@@ -183,7 +183,7 @@ export TERM=xterm; python3 -c 'import pty;pty.spawn("/bin/bash")'
 ```
 <br>
 
-> We can see that there is a folder called images (as expected) but when we 'cd' to it we can now see that it contains two files, may as well grab them just incase there are useful for something such as steganography. I set up a web server on port 4445 on the victim machine, and simply used the browser to save the files I could also have just used wget / curl.
+> We can see that there is a folder called images (as expected) but when we 'cd' to it we can now see that it contains two files, may as well grab them just in case there are useful for something such as steganography. I set up a web server on port 4445 on the victim machine, and simply used the browser to save the files I could also have just used wget / curl.
 
 <br>
 
@@ -237,11 +237,11 @@ steghide: the file format of the file "oneforall.jpg" is not supported.
 ```
 <br>
 
-> Well that's unfortunate... I need to see what's going on with this file, maybe someone has modified it. I attempted to use binwalk to extract any files, but it was unsuccessful so at this point I decided to look at the magic bytes for the file. Unfortuantely I had a brain fart and could not remember what all HEX editors come bundled with Kali so I grabbed the first one that looked right.
+> Well that's unfortunate... I need to see what's going on with this file, maybe someone has modified it. I attempted to use binwalk to extract any files, but it was unsuccessful so at this point I decided to look at the magic bytes for the file. Unfortunately I had a brain fart and could not remember what all HEX editors come bundled with Kali so I grabbed the first one that looked right.
 
 <br>
 
-> The magic bytes inidcate that the file is a PNG, not a JPG... it's labeled as a .jpg so let's change the magic bytes to match the jpg extension 
+> The magic bytes indicate that the file is a PNG, not a JPG... it's labeled as a .jpg so let's change the magic bytes to match the jpg extension 
 ```FF D8 FF E0 00 10 4A 46 49 46 00 01```.
 
 <br>
